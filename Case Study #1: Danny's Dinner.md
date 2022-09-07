@@ -1,6 +1,6 @@
 # Case Study #1: Danny's Dinner
 
-**Problem Statement**
+## Problem Statement
 
 Danny wants to use the data to answer a few simple questions about his customers, especially about their visiting patterns, 
 how much money they’ve spent and also which menu items are their favourite. 
@@ -14,14 +14,13 @@ but he hopes that these examples are enough for you to write fully functioning S
 
 Danny has shared with you 3 key datasets for this case study:
 
-- sales
-- menu
-- members
+- ```sales```
+- ```menu```
+- ```members```
 
 <img width="650" alt="image" src="https://user-images.githubusercontent.com/104567399/188868508-dbcb086a-5d82-450d-ba18-8aaad24bb8dc.png">
 
-
-**Case Study Questions**
+## Case Study Questions
 
 1. What is the total amount each customer spent at the restaurant?
 2. How many days has each customer visited the restaurant?
@@ -35,19 +34,76 @@ Danny has shared with you 3 key datasets for this case study:
 10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, 
 not just sushi - how many points do customer A and B have at the end of January?
 
-
-**Solution**
-
-**Case Study Questions**
+## Solution
 
 1. What is the total amount each customer spent at the restaurant?
 
+STEPS:
+1. **JOIN** table ```sales``` and ```menu``` based on ```product_id```
+2. **SUM** the ```price``` and **GROUP BY** ```customer_id``` to calculate ```total_spending```
+
 ```sql
+SELECT
+  sales.customer_id , 
+  SUM(menu.price) AS total_spending
+FROM sales
+JOIN menu
+ON sales.product_id = menu.product_id
+GROUP BY customer_id
+ORDER BY customer_id;
+```
+| customer_id | total_spending |
+| ----------- | -------------- |
+| A           | 76             |
+| B           | 74             |
+| C           | 36             |
+
+2. How many days has each customer visited the restaurant?
+
+STEPS:
+1. **COUNT** the ```order_date``` of each customer by using **DISTINCT** to keep two or more visits in one day counting as one
+
+```sql
+SELECT 
+customer_id,
+COUNT(DISTINCT(order_date)) AS total_visit
+FROM sales
+GROUP BY customer_id
+ORDER BY customer_id;
 ```
 
-3. How many days has each customer visited the restaurant?
-4. What was the first item from the menu purchased by each customer?
-5. What is the most purchased item on the menu and how many times was it purchased by all customers?
+| customer_id | total_visit |
+| ----------- | ----------- |
+| A           | 4           |
+| B           | 6           |
+| C           | 2           |
+
+3. What was the first item from the menu purchased by each customer?
+
+```sql
+WITH order_rank AS(
+SELECT 
+customer_id, sales.order_date,
+DENSE_RANK () over (ORDER BY sales.order_date) AS rank, menu.product_name
+FROM sales
+JOIN menu
+ON sales.product_id = menu.product_id
+)
+SELECT DISTINCT customer_id, product_name AS first_order
+FROM order_rank
+WHERE rank = 1
+ORDER BY customer_id;
+```
+| customer_id | first_order |
+| ----------- | ----------- |
+| A           | curry       |
+| A           | sushi       |
+| B           | curry       |
+| C           | ramen       |
+
+4. What is the most purchased item on the menu and how many times was it purchased by all customers?
+
+
 6. Which item was the most popular for each customer?
 7. Which item was purchased first by the customer after they became a member?
 8. Which item was purchased just before the customer became a member?
