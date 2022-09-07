@@ -58,6 +58,7 @@ ORDER BY customer_id;
 | B           | 74             |
 | C           | 36             |
 
+
 2. How many days has each customer visited the restaurant?
 
 STEPS:
@@ -71,14 +72,22 @@ FROM sales
 GROUP BY customer_id
 ORDER BY customer_id;
 ```
-
 | customer_id | total_visit |
 | ----------- | ----------- |
 | A           | 4           |
 | B           | 6           |
 | C           | 2           |
 
+
 3. What was the first item from the menu purchased by each customer?
+
+STEPS:
+1. Use **DENSE_RANK** to give rank to item that each customer ordered from the first visit to last visit based on the ```order_date``` 
+2. **JOIN** table ```sales``` and ```menu``` to show the ```customer_id``` and ```product_name```
+3. Use CTE method to create temporary table
+4. To show only the first item that each customer ordered, put condition **WHERE** rank contains 1
+5. **DISTINCT** the product name, so for customer who ordered two ramens at first day, the result show only ramen once.
+
 
 ```sql
 WITH order_rank AS(
@@ -100,6 +109,7 @@ ORDER BY customer_id;
 | A           | sushi       |
 | B           | curry       |
 | C           | ramen       |
+
 
 4. What is the most purchased item on the menu and how many times was it purchased by all customers?
 
