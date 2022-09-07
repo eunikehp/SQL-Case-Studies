@@ -36,11 +36,11 @@ not just sushi - how many points do customer A and B have at the end of January?
 
 ## Solution
 
-1. What is the total amount each customer spent at the restaurant?
+**1. What is the total amount each customer spent at the restaurant?**
 
 STEPS:
-1. **JOIN** table ```sales``` and ```menu``` based on ```product_id```
-2. **SUM** the ```price``` and **GROUP BY** ```customer_id``` to calculate ```total_spending```
+1. **JOIN** table of ```sales``` and ```menu``` based on ```product_id```.
+2. **SUM** the ```price``` and **GROUP BY** ```customer_id``` to calculate ```total_spending```.
 
 ```sql
 SELECT
@@ -59,10 +59,10 @@ ORDER BY customer_id;
 | C           | 36             |
 
 
-2. How many days has each customer visited the restaurant?
+**2. How many days has each customer visited the restaurant?**
 
 STEPS:
-1. **COUNT** the ```order_date``` of each customer by using **DISTINCT** to keep two or more visits in one day counting as one
+1. **COUNT** the ```order_date``` of each customer by using **DISTINCT** to keep two or more visits in one day counting as one.
 
 ```sql
 SELECT 
@@ -79,15 +79,14 @@ ORDER BY customer_id;
 | C           | 2           |
 
 
-3. What was the first item from the menu purchased by each customer?
+**3. What was the first item from the menu purchased by each customer?**
 
 STEPS:
-1. Use **DENSE_RANK** to give rank to item that each customer ordered from the first visit to last visit based on the ```order_date``` 
-2. **JOIN** table ```sales``` and ```menu``` to show the ```customer_id``` and ```product_name```
-3. Use CTE method to create temporary table
-4. To show only the first item that each customer ordered, put condition **WHERE** rank contains 1
+1. Use **DENSE_RANK** to give rank to item that each customer ordered from the first visit to last visit based on the ```order_date```.
+2. **JOIN** table of ```sales``` and ```menu``` to show the ```customer_id``` and ```product_name```.
+3. Use CTE method to create temporary table.
+4. To show only the first item that each customer ordered, put condition **WHERE** rank contains 1.
 5. **DISTINCT** the product name, so for customer who ordered two ramens at first day, the result show only ramen once.
-
 
 ```sql
 WITH order_rank AS(
@@ -110,11 +109,55 @@ ORDER BY customer_id;
 | B           | curry       |
 | C           | ramen       |
 
+**4. What is the most purchased item on the menu and how many times was it purchased by all customers?**
 
-4. What is the most purchased item on the menu and how many times was it purchased by all customers?
+STEPS:
+1. **JOIN** the ```sales``` and ```menu``` table.
+2. **COUNT** the total product purchased based on the ```product_name```.
+3. **ORDER BY** the product in descending order to show the highest number on the first row.
+4. **LIMIT** the row to show only row 1 as the most purchased item.
+
+```sql
+SELECT menu.product_name, COUNT(sales.product_id) AS most_purchased 
+FROM sales 
+JOIN menu
+ON sales.product_id = menu.product_id
+GROUP BY product_name
+ORDER BY most_purchased DESC
+LIMIT 1;
+```
+
+| product_name | most_purchased |
+| ------------ | -------------- |
+| ramen        | 8              |
+
+**5. Which item was the most popular for each customer?**
+
+```sql
+WITH ranking AS(
+  SELECT customer_id, product_id, COUNT(product_id) AS order_count,
+  DENSE_RANK() over (PARTITION BY customer_id ORDER BY COUNT(product_id) DESC) AS rank 
+  FROM sales
+  GROUP BY customer_id, product_id
+  ORDER BY customer_id)
+ 
+SELECT ranking.customer_id, menu.product_name, ranking.order_count
+FROM ranking
+JOIN menu
+ON ranking.product_id = menu.product_id
+WHERE rank = 1
+ORDER BY customer_id;
+```
+
+| customer_id | product_name | order_count |
+| ----------- | ------------ | ----------- |
+| A           | ramen        | 3           |
+| B           | sushi        | 2           |
+| B           | curry        | 2           |
+| B           | ramen        | 2           |
+| C           | ramen        | 3           |
 
 
-6. Which item was the most popular for each customer?
 7. Which item was purchased first by the customer after they became a member?
 8. Which item was purchased just before the customer became a member?
 9. What is the total items and amount spent for each member before they became a member?
