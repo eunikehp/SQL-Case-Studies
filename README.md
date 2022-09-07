@@ -3,7 +3,7 @@
 This repository contains the solutions of #8WeekSQLChallenge by [Danny Ma](https://8weeksqlchallenge.com/getting-started/)
 
 ## Table of Contents
-- Case Study #1: Danny's Dinner
+- [Case Study #1: Danny's Dinner](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%231:%20Danny's%20Dinner.md)
 - Case Study #2: Pizza Runner
 - Case Study #3: Foodie-Fi
 - Case Study #4: Data Bank
