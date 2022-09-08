@@ -90,13 +90,12 @@ STEPS:
 
 ```sql
 WITH order_rank AS(
-SELECT 
-customer_id, sales.order_date,
-DENSE_RANK () over (ORDER BY sales.order_date) AS rank, menu.product_name
-FROM sales
-JOIN menu
-ON sales.product_id = menu.product_id
-)
+	SELECT 
+	customer_id, sales.order_date,
+	DENSE_RANK () over (ORDER BY sales.order_date) AS rank, menu.product_name
+	FROM sales
+	JOIN menu
+	ON sales.product_id = menu.product_id)
 SELECT DISTINCT customer_id, product_name AS first_order
 FROM order_rank
 WHERE rank = 1
@@ -173,11 +172,12 @@ STEPS:
 
 ```sql
 WITH ranking AS(
-SELECT sales.customer_id, sales.order_date, sales.product_id, DENSE_RANK()over(PARTITION BY sales.customer_id ORDER BY sales.order_date ASC) AS rank
-FROM sales
-JOIN members
-ON sales.customer_id = members.customer_id
-WHERE order_date >= join_date)
+	SELECT sales.customer_id, sales.order_date, sales.product_id, 
+	DENSE_RANK()over(PARTITION BY sales.customer_id ORDER BY sales.order_date ASC) AS rank
+	FROM sales
+	JOIN members
+	ON sales.customer_id = members.customer_id
+	WHERE order_date >= join_date)
 SELECT ranking.customer_id, menu.product_name
 FROM ranking
 JOIN menu
@@ -202,11 +202,12 @@ STEPS:
 
 ```sql
 WITH ranking AS(
-SELECT sales.customer_id, sales.order_date, sales.product_id, DENSE_RANK()over(PARTITION BY sales.customer_id ORDER BY sales.order_date DESC) AS rank, members.join_date
-FROM sales
-JOIN members
-ON sales.customer_id = members.customer_id
-WHERE order_date < join_date)
+	SELECT sales.customer_id, sales.order_date, sales.product_id, 
+	DENSE_RANK()over(PARTITION BY sales.customer_id ORDER BY sales.order_date DESC) AS rank, members.join_date
+	FROM sales
+	JOIN members
+	ON sales.customer_id = members.customer_id
+	WHERE order_date < join_date)
 SELECT ranking.customer_id, menu.product_name
 FROM ranking
 JOIN menu
@@ -228,11 +229,11 @@ STEPS:
 
 ```sql
 WITH before_become_member AS(
-SELECT sales.customer_id, sales.order_date, sales.product_id
-FROM sales
-JOIN members
-ON sales.customer_id = members.customer_id
-WHERE order_date < join_date)
+	SELECT sales.customer_id, sales.order_date, sales.product_id
+	FROM sales
+	JOIN members
+	ON sales.customer_id = members.customer_id
+	WHERE order_date < join_date)
 SELECT be.customer_id, COUNT(DISTINCT be.product_id)AS total_items,
 SUM(menu.price) AS amount_spent
 FROM before_become_member AS be
@@ -268,7 +269,6 @@ ORDER BY customer_id;
 | A           | 860          |
 | B           | 940          |
 | C           | 360          |
-
 
 **10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, 
 not just sushi - how many points do customer A and B have at the end of January?**
