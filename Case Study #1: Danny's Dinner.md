@@ -133,6 +133,11 @@ LIMIT 1;
 
 **5. Which item was the most popular for each customer?**
 
+STEPS:
+1. **COUNT** the purchase of each item and **RANK** them according to total purchase in descending order.
+2. Create a temporary table using CTE method 
+3. **JOIN** that table with menu table to show the ```product_name``` and the item that ha
+
 ```sql
 WITH ranking AS(
   SELECT customer_id, product_id, COUNT(product_id) AS order_count,
@@ -158,9 +163,36 @@ ORDER BY customer_id;
 | C           | ramen        | 3           |
 
 
-7. Which item was purchased first by the customer after they became a member?
-8. Which item was purchased just before the customer became a member?
-9. What is the total items and amount spent for each member before they became a member?
-10. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
-11. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, 
-not just sushi - how many points do customer A and B have at the end of January?
+**6. Which item was purchased first by the customer after they became a member?**
+
+STEPS:
+1. **DENSE_RANK** the order date in ascending order 
+2. **JOIN** the sales and members tables and show row that item is ordered after join date by using **WHERE**.
+3. Using CTE, combine the temporary ```ranking``` table with ```menu``` table.
+4. **SELECT** only rows that rank column contains 1 which determine that item was purchased by the customer.
+
+```sql
+WITH ranking AS(
+SELECT sales.customer_id, sales.order_date, sales.product_id, DENSE_RANK()over(PARTITION BY sales.customer_id ORDER BY sales.order_date ASC) AS rank
+FROM sales
+JOIN members
+ON sales.customer_id = members.customer_id
+WHERE order_date >= join_date)
+SELECT ranking.customer_id, menu.product_name
+FROM ranking
+JOIN menu
+ON ranking.product_id = menu.product_id
+WHERE ranking.rank =1
+ORDER BY customer_id;
+```
+
+**7. Which item was purchased just before the customer became a member?**
+
+
+**8. What is the total items and amount spent for each member before they became a member?**
+
+
+**9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
+
+**10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, 
+not just sushi - how many points do customer A and B have at the end of January?**
