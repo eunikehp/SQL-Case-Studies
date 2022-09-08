@@ -166,7 +166,7 @@ ORDER BY customer_id;
 **6. Which item was purchased first by the customer after they became a member?**
 
 STEPS:
-1. **DENSE_RANK** the order date in ascending order 
+1. **DENSE_RANK** the order date in ascending order. 
 2. **JOIN** the sales and members tables and show row that item is ordered after join date by using **WHERE**.
 3. Using CTE, combine the temporary ```ranking``` table with ```menu``` table.
 4. **SELECT** only rows that rank column contains 1 which determine that item was purchased by the customer.
@@ -186,10 +186,66 @@ WHERE ranking.rank =1
 ORDER BY customer_id;
 ```
 
+| customer_id | product_name |
+| ----------- | ------------ |
+| A           | curry        |
+| B           | sushi        |
+
+
 **7. Which item was purchased just before the customer became a member?**
 
+STEPS:
+1. **DENSE_RANK** the order date in descending order to show item purchased just before the customer become a member.
+2. **JOIN** the sales and members tables and show row that item is ordered before join date by using **WHERE**.
+3. Using CTE, combine the temporary ```ranking``` table with ```menu``` table.
+4. **SELECT** only rows that rank column contains 1 which determine that item was purchased by the customer.
+
+```sql
+WITH ranking AS(
+SELECT sales.customer_id, sales.order_date, sales.product_id, DENSE_RANK()over(PARTITION BY sales.customer_id ORDER BY sales.order_date DESC) AS rank, members.join_date
+FROM sales
+JOIN members
+ON sales.customer_id = members.customer_id
+WHERE order_date < join_date)
+SELECT ranking.customer_id, menu.product_name
+FROM ranking
+JOIN menu
+ON ranking.product_id = menu.product_id
+WHERE ranking.rank =1
+ORDER BY customer_id;
+```
+
+| customer_id | product_name |
+| ----------- | ------------ |
+| A           | sushi        |
+| A           | curry        |
+| B           | sushi        |
 
 **8. What is the total items and amount spent for each member before they became a member?**
+
+STEPS:
+1. 
+
+```sql
+WITH before_become_member AS(
+SELECT sales.customer_id, sales.order_date, sales.product_id
+FROM sales
+JOIN members
+ON sales.customer_id = members.customer_id
+WHERE order_date < join_date)
+SELECT be.customer_id, COUNT(DISTINCT be.product_id)AS total_items,
+SUM(menu.price) AS amount_spent
+FROM before_become_member AS be
+JOIN menu
+ON be.product_id = menu.product_id
+GROUP BY customer_id
+ORDER BY customer_id;
+```
+
+| customer_id | total_items | amount_spent |
+| ----------- | ----------- | ------------ |
+| A           | 2           | 25           |
+| B           | 2           | 40           |
 
 
 **9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
