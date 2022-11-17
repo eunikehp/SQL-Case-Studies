@@ -74,17 +74,25 @@ ORDER BY c.region_id;
 |4	|Asia	|665|
 |5|	Europe	|616|
 
-DB Fiddle – Crafted with ♥ by Status200 in the United Kingdom.
-Terms of Use • Privacy / Cookie Policy • Status200 Ltd © 2018
-×
-
-Are you using DB Fiddle to conduct SQL assessments?
-Check out DB Recruiter, a platform we created for this exact purpose!
-
-
-
-
 3. How many customers are allocated to each region?
+```sql
+SELECT c.region_id, r.region_name, COUNT (customer_id) AS customer_count
+FROM customer_nodes AS c
+JOIN regions AS r
+ON c.region_id = r.region_id
+GROUP BY c.region_id, r.region_name
+ORDER BY c.region_id;
+```
+
+|region_id|	region_name	|customer_count|
+|-|-|-|
+|1	|Australia|	770|
+|2	|America|	735|
+|3	|Africa|	714|
+|4	|Asia	|665|
+|5|	Europe	|616|
+
+
 4. How many days on average are customers reallocated to a different node?
 5. What is the median, 80th and 95th percentile for this same reallocation days metric for each region?
 
