@@ -83,7 +83,6 @@ ON c.region_id = r.region_id
 GROUP BY c.region_id, r.region_name
 ORDER BY c.region_id;
 ```
-
 |region_id|	region_name	|customer_count|
 |-|-|-|
 |1	|Australia|	770|
@@ -92,7 +91,6 @@ ORDER BY c.region_id;
 |4	|Asia	|665|
 |5|	Europe	|616|
 
-
 4. How many days on average are customers reallocated to a different node?
 5. What is the median, 80th and 95th percentile for this same reallocation days metric for each region?
 
@@ -100,8 +98,15 @@ ORDER BY c.region_id;
 
 1. What is the unique count and total amount for each transaction type?
 ```sql
-
+SELECT txn_type, COUNT(customer_id), SUM(txn_amount) AS total_amount
+FROM customer_transactions
+GROUP BY txn_type;
 ```
+|txn_type	|count	|total_amount|
+|---|---|---|
+|purchase	|1617	|806537|
+|deposit	|2671	|1359168|
+|withdrawal	|1580|	793003|
 
 2. What is the average total historical deposit counts and amounts for all customers?
 3. For each month - how many Data Bank customers make more than 1 deposit and either 1 purchase or 1 withdrawal in a single month?
