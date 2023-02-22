@@ -40,7 +40,7 @@ All datasets exist within the pizza_runner database schema - be sure to include 
 |10	|104|	1|	null	|null	|2021-01-11 18:34:49|
 |10|	104|	1	|2, 6|	1, 4	|2021-01-11 18:34:49|
 
-**Table 2 :** ```runner_orders```
+**Table 3 :** ```runner_orders```
 |order_id|	runner_id	|pickup_time|	distance	|duration|	cancellation|
 |---|---|---|---|---|---|
 |1|	1	|2021-01-01 18:15:34|	20km|	32 minutes	 | |
@@ -53,3 +53,17 @@ All datasets exist within the pizza_runner database schema - be sure to include 
 |8	|2	|2020-01-10 00:15:02|	23.4 km	|15 minute|	null|
 |9|	2	|null|	null	|null|	Customer Cancellation|
 |10|	1|	2020-01-11 18:50:20	|10km	|10minutes	|null|
+
+**Table 4 :** ```pizza_names```
+
+|pizza_id|	pizza_name|
+|---|---|
+|1	|Meat Lovers|
+|2	|Vegetarian|
+
+**Table 5 :** ```pizza_toppings```
+|pizza_id	|toppings|
+|---|---|
+|1	|1, 2, 3, 4, 5, 6, 8, 10|
+|2	|4, 6, 7, 9, 11, 12|
+
