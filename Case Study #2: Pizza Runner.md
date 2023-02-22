@@ -154,13 +154,27 @@ A. Pizza Metrics
 1. How many pizzas were ordered?
 
 ```sql
-
-
-
-
+SELECT COUNT (pizza_id) AS total_pizza
+FROM customer_orders_temp;
 ```
-3. How many unique customer orders were made?
-4. How many successful orders were delivered by each runner?
+|total_pizza|
+|---|
+|14|
+
+2. How many unique customer orders were made?
+
+```sql
+SELECT COUNT (DISTINCT order_id) AS total_order
+FROM customer_orders_temp;
+```
+|total_order|
+|---|
+|10|
+
+3. How many successful orders were delivered by each runner?
+
+
+5. 
 How many of each type of pizza was delivered?
 How many Vegetarian and Meatlovers were ordered by each customer?
 What was the maximum number of pizzas delivered in a single order?
