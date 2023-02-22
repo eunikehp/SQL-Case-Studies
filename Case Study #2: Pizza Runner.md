@@ -120,7 +120,7 @@ CREATE TEMP TABLE runner_orders_temp AS
 SELECT order_id, runner_id, 
 	CASE 
     	WHEN pickup_time LIKE 'null' THEN ' ' 
-   		ELSE pickup_time END AS pickup_time,
+   	ELSE pickup_time END AS pickup_time,
     CASE 
     	WHEN distance LIKE 'null' THEN ' '
         WHEN distance LIKE '%km' THEN TRIM('km' from distance)
@@ -130,7 +130,7 @@ SELECT order_id, runner_id,
         WHEN duration LIKE '%mins' THEN TRIM('mins' from duration)
         WHEN duration LIKE '%minute' THEN TRIM ('minute' from duration)
         WHEN duration LIKE '%minutes' THEN TRIM ('minutes' from duration) ELSE duration END AS duration,
-	CASE WHEN cancellation IS null OR cancellation LIKE 'null' THEN ' ' ELSE cancellation END AS cancellation
+    CASE WHEN cancellation IS null OR cancellation LIKE 'null' THEN ' ' ELSE cancellation END AS cancellation
 FROM runner_orders;
 
 ```
