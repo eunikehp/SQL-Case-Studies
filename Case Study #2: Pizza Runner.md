@@ -26,7 +26,7 @@ Because Danny had a few years of experience as a data scientist - he was very aw
 |1	|101|	1	 |	| |	2021-01-01 18:05:02|
 |2	|101|	1	| |	 	|2021-01-01 19:00:52|
 |3|	102	|1	| |	 	|2021-01-02 23:51:23|
-|3	|102	|2	| 	|NaN	|2021-01-02 23:51:23|
+|3	|102	|2	| 	|null	|2021-01-02 23:51:23|
 |4|	103|	1|	4	| 	|2021-01-04 13:23:46|
 |4	|103|	1|	4	| |	2021-01-04 13:23:46|
 |4|	103|	2	|4|	 |	2021-01-04 13:23:46|
@@ -83,16 +83,19 @@ Because Danny had a few years of experience as a data scientist - he was very aw
 
 ## Cleaning the database
 
-If we are looking at the provided table, there is a lot of ```null`` values and missing spaces which leads to unclear explanation of some cells. 
+If we are looking at the provided table, there is a lot of ```null``` values and missing spaces which leads to unclear explanation of some cells. 
 For example,```exclusions``` & ```extras ``` columns in **Table 2** .
 Therefore, we need to clean up the data before using it. It is necessary to create temporary table, named **Table 2A - customer_orders2**
 
 ```sql
-
+CREATE TEMP TABLE orders_temp AS
+  SELECT order_id, customer_id, 
+	CASE WHEN exclusions IS null OR exclusions LIKE 'null' THEN ' ' ELSE exclusions END AS exclusions,
+  CASE WHEN extras IS null OR extras LIKE 'null' THEN ' ' ELSE extras END AS extras,order_time
+FROM customer_orders;
 ```
 
-
-## Case Study Questions
+## Case Study Questions & Solutions
 
 A. Pizza Metrics
 1. How many pizzas were ordered?
