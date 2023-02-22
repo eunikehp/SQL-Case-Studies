@@ -85,13 +85,13 @@ Because Danny had a few years of experience as a data scientist - he was very aw
 
 If we are looking at the provided table, there is a lot of ```null``` values and missing spaces which leads to unclear explanation of some cells. 
 For example,```exclusions``` & ```extras ``` columns in **Table 2** .
-Therefore, we need to clean up the data before using it. It is necessary to create temporary table, named **Table 2A - customer_orders2**
+Therefore, we need to clean up the data before using it. It is necessary to create temporary table, named **Table 2A - orders_temp**
 
 ```sql
 CREATE TEMP TABLE orders_temp AS
   SELECT order_id, customer_id, pizza_id,
 	CASE WHEN exclusions IS null OR exclusions LIKE 'null' THEN ' ' ELSE exclusions END AS exclusions,
-  CASE WHEN extras IS null OR extras LIKE 'null' THEN ' ' ELSE extras END AS extras,order_time
+  	CASE WHEN extras IS null OR extras LIKE 'null' THEN ' ' ELSE extras END AS extras,order_time
 FROM customer_orders;
 ```
 
