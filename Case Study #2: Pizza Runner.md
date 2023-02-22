@@ -172,11 +172,41 @@ FROM customer_orders_temp;
 |10|
 
 3. How many successful orders were delivered by each runner?
+```sql
+SELECT runner_id, COUNT (order_id) AS total_order
+FROM runner_orders_temp
+WHERE distance <> ' '
+GROUP BY runner_id
+ORDER BY runner_id;
+```
+
+|runner_id	|total_order|
+|---|---|
+|1|	4|
+|2|	3|
+|3|	1|
+
+4. How many of each type of pizza was delivered?
+```sql
+SELECT pn.pizza_name, COUNT (co.pizza_id) AS total_pizza
+FROM pizza_names AS pn
+JOIN customer_orders_temp AS co
+ON pn.pizza_id = co.pizza_id
+JOIN runner_orders_temp AS ro
+ON co.order_id = ro.order_id
+WHERE distance <> ' '
+GROUP BY pn.pizza_name;
+```
+
+|pizza_name |	total_pizza |
+|---|---|
+|Meatlovers |	9 |
+|Vegetarian |	3 |
 
 
-5. 
-How many of each type of pizza was delivered?
-How many Vegetarian and Meatlovers were ordered by each customer?
+5. How many Vegetarian and Meatlovers were ordered by each customer?
+
+
 What was the maximum number of pizzas delivered in a single order?
 For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
 How many pizzas were delivered that had both exclusions and extras?
