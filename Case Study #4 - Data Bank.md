@@ -126,9 +126,27 @@ GROUP BY customer_id, txn_type)
 
 3. For each month - how many Data Bank customers make more than 1 deposit and either 1 purchase or 1 withdrawal in a single month?
 ```sql
+WITH transaction AS (
+SELECT customer_id, 
+DATE_PART ('month',txn_date) AS month,
+SUM (CASE WHEN txn_type = 'deposit' THEN 1 ELSE 0 END) AS deposit,
+SUM (CASE WHEN txn_type = 'purchase' THEN 1 ELSE 0 END) AS purchase,
+SUM (CASE WHEN txn_type = 'withdrawal' THEN 1 ELSE 0 END) AS withdrawal
+FROM customer_transactions
+GROUP BY customer_id, month)
 
+SELECT month, COUNT(DISTINCT customer_id) AS customer_count
+FROM transaction
+WHERE deposit >= 2 AND (purchase >1 OR withdrawal>1)
+GROUP BY month
+ORDER BY month;
 ```
-
+|month|	customer_count |
+|---|---|
+|1|	88|
+|2|	115|
+|3|	137|
+|4	|40|
 
 
 4. What is the closing balance for each customer at the end of the month?
