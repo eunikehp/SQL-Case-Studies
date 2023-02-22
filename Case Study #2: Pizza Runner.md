@@ -2,11 +2,9 @@
 
 ## Problem Statement
 
-Because Danny had a few years of experience as a data scientist - he was very aware that data collection was going to be critical for his business’ growth.
+Danny has a plan to launch Pizza Runner. He started by recruiting “runners” to deliver fresh pizza from Pizza Runner Headquarters (otherwise known as Danny’s house) and also maxed out his credit card to pay freelance developers to build a mobile app to accept orders from customers. 
 
-He has prepared for us an entity relationship diagram of his database design but requires further assistance to clean his data and apply some basic calculations so he can better direct his runners and optimise Pizza Runner’s operations.
-
-All datasets exist within the pizza_runner database schema - be sure to include this reference within your SQL scripts as you start exploring the data and answering the case study questions.
+Because Danny had a few years of experience as a data scientist - he was very aware that data collection was going to be critical for his business’ growth.He has prepared for us an entity relationship diagram of his database design but requires further assistance to clean his data and apply some basic calculations so he can better direct his runners and optimise Pizza Runner’s operations.
 
 ## Entity Relationship Diagram
 
@@ -83,12 +81,27 @@ All datasets exist within the pizza_runner database schema - be sure to include 
 |11	|Tomatoes|
 |12	|Tomato Sauce|
 
+## Cleaning the database
+
+If we are looking at the provided table, there is a lot of ```null`` values and missing spaces which leads to unclear explanation of some cells. 
+For example,```exclusions``` & ```extras ``` columns in ** Table 2** .
+Therefore, we need to clean up the data before using it.
+
+
+
 ## Case Study Questions
 
 A. Pizza Metrics
 1. How many pizzas were ordered?
-2. How many unique customer orders were made?
-3. How many successful orders were delivered by each runner?
+
+```sql
+
+
+
+
+```
+3. How many unique customer orders were made?
+4. How many successful orders were delivered by each runner?
 How many of each type of pizza was delivered?
 How many Vegetarian and Meatlovers were ordered by each customer?
 What was the maximum number of pizzas delivered in a single order?
