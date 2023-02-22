@@ -52,4 +52,4 @@ All datasets exist within the pizza_runner database schema - be sure to include 
 |7|	2	|2020-01-08 21:30:45	|25km	|25mins	|null|
 |8	|2	|2020-01-10 00:15:02|	23.4 km	|15 minute|	null|
 |9|	2	|null|	null	|null|	Customer Cancellation|
-10	1	2020-01-11 18:50:20	10km	10minutes	null
+|10|	1|	2020-01-11 18:50:20	|10km	|10minutes	|null|
