@@ -150,4 +150,4 @@ ORDER BY month;
 
 
 4. What is the closing balance for each customer at the end of the month?
-6. What is the percentage of customers who increase their closing balance by more than 5%?
+5. What is the percentage of customers who increase their closing balance by more than 5%?
