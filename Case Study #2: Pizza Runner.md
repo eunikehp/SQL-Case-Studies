@@ -61,9 +61,24 @@ All datasets exist within the pizza_runner database schema - be sure to include 
 |1	|Meat Lovers|
 |2	|Vegetarian|
 
-**Table 5 :** ```pizza_toppings```
+**Table 5 :** ```pizza_recipes```
 |pizza_id	|toppings|
 |---|---|
 |1	|1, 2, 3, 4, 5, 6, 8, 10|
 |2	|4, 6, 7, 9, 11, 12|
 
+**Table 5 :** ```pizza_toppings```
+|topping_id|	topping_name|
+|---|---|
+|1	Bacon|
+|2|	BBQ Sauce|
+|3	|Beef|
+|4	|Cheese|
+|5	|Chicken|
+|6	|Mushrooms|
+|7	|Onions|
+|8	|Pepperoni|
+|9	|Peppers|
+|10	|Salami|
+|11	|Tomatoes|
+|12	|Tomato Sauce|
