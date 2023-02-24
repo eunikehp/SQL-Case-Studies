@@ -244,7 +244,35 @@ ORDER BY co.customer_id;
 6. What was the maximum number of pizzas delivered in a single order?
 
 ```sql
-For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+WITH order_per_id AS(
+  SELECT co.order_id, COUNT (co.pizza_id) AS total_order
+FROM customer_orders_temp AS co
+JOIN runner_orders_temp AS ro
+ON co.order_id = ro.order_id
+WHERE distance <> ' '
+GROUP BY co.order_id
+ORDER BY co.order_id)
+
+SELECT MAX(total_order) AS max_order_per_id
+FROM order_per_id;
+```
+|order_id|	total_order|
+|---|---|
+|1|	1|
+|2|	1|
+|3|	2|
+|4|	3|
+|5|	1|
+|7|	1|
+|8|	1|
+|10|	2|
+
+|max_order_per_id|
+|---|
+|3|
+
+7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+
 How many pizzas were delivered that had both exclusions and extras?
 What was the total volume of pizzas ordered for each hour of the day?
 What was the volume of orders for each day of the week?
