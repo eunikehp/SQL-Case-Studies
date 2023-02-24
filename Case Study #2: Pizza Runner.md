@@ -12,6 +12,8 @@ Because Danny had a few years of experience as a data scientist - he was very aw
 
 **Table 1 :** ```runners```
 
+The ```runners``` table shows the ```registration_date``` for each new runner
+
 |runner_id	|registration_date|
 |---|---|
 |1|	2021-01-01|
@@ -20,6 +22,9 @@ Because Danny had a few years of experience as a data scientist - he was very aw
 |4	|2021-01-15|
 
 **Table 2 :** ```customer_orders```
+
+Customer pizza orders are captured in the ```customer_orders``` table
+the ```exclusions``` are the ingredient_id values which should be removed from the pizza and the ```extras``` are the ingredient_id values which need to be added to the pizza.
 
 |order_id|	customer_id|	pizza_id	|exclusions	|extras|	order_time|
 |----|---|----|---|---|---|
@@ -39,6 +44,9 @@ Because Danny had a few years of experience as a data scientist - he was very aw
 |10|	104|	1	|2, 6|	1, 4	|2021-01-11 18:34:49|
 
 **Table 3 :** ```runner_orders```
+
+After each orders are received through the system - they are assigned to a runner - however not all orders are fully completed and can be cancelled by the restaurant or the customer.
+
 |order_id|	runner_id	|pickup_time|	distance	|duration|	cancellation|
 |---|---|---|---|---|---|
 |1|	1	|2021-01-01 18:15:34|	20km|	32 minutes	 | |
@@ -54,18 +62,26 @@ Because Danny had a few years of experience as a data scientist - he was very aw
 
 **Table 4 :** ```pizza_names```
 
+At the moment - Pizza Runner only has 2 pizzas available the Meat Lovers or Vegetarian!
+
 |pizza_id|	pizza_name|
 |---|---|
 |1	|Meat Lovers|
 |2	|Vegetarian|
 
 **Table 5 :** ```pizza_recipes```
+
+Each pizza_id has a standard set of toppings which are used as part of the pizza recipe.
+
 |pizza_id	|toppings|
 |---|---|
 |1	|1, 2, 3, 4, 5, 6, 8, 10|
 |2	|4, 6, 7, 9, 11, 12|
 
 **Table 5 :** ```pizza_toppings```
+
+This table contains all of the topping_name values with their corresponding topping_id value.
+
 |topping_id|	topping_name|
 |---|---|
 |1	|Bacon|
@@ -84,7 +100,7 @@ Because Danny had a few years of experience as a data scientist - he was very aw
 ## Cleaning the database
 
 If we are looking at the provided table, there is a lot of ```null``` values and missing spaces which leads to unclear explanation of some columns, for example,```exclusions``` & ```extras ``` columns in **Table 2** .
-Therefore, we need to clean up the data before using it. It is necessary to create temporary table.
+First thing to do before answer the case study question, we need to clean up the data. Therefore, it is necessary to create temporary table.
 
 **Table 2A - customer_orders_temp**
 
