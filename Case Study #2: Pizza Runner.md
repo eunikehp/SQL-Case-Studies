@@ -6,6 +6,10 @@ Danny has a plan to launch Pizza Runner. He started by recruiting “runners” 
 
 Because Danny had a few years of experience as a data scientist - he was very aware that data collection was going to be critical for his business’ growth.He has prepared for us an entity relationship diagram of his database design but requires further assistance to clean his data and apply some basic calculations so he can better direct his runners and optimise Pizza Runner’s operations.
 
+<details>
+  <summary>:zap: ## Entity Relationship Diagram</summary>
+
+</details>
 ## Entity Relationship Diagram
 
 <img width="650" alt="image" src="https://user-images.githubusercontent.com/104567399/220662950-bf47793c-e3e5-43ee-bccc-051c2a12da7a.png">
