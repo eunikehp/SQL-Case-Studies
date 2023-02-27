@@ -171,4 +171,4 @@ FROM customer_orders_temp
 GROUP BY day_per_week;
 ```
 
-Back to [Main Menu](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner.md)
+Back to [Main Menu](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner.md) 
