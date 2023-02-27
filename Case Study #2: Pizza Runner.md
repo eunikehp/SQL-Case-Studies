@@ -304,6 +304,7 @@ GROUP BY co.customer_id
 ORDER BY co.customer_id;
 ```
 |customer_id	|change|
+|---|---|
 |101|	0|
 |102|	0|
 |103|	0|
