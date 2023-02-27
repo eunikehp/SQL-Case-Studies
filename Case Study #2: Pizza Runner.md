@@ -107,8 +107,8 @@ First thing to do before answer the case study question, we need to clean up the
 ```sql
 CREATE TEMP TABLE customer_orders_temp AS
   SELECT order_id, customer_id, pizza_id,
-	CASE WHEN exclusions IS null OR exclusions LIKE 'null' THEN ' ' ELSE exclusions END AS exclusions,
-  	CASE WHEN extras IS null OR extras LIKE 'null' THEN ' ' ELSE extras END AS extras,order_time
+	CASE WHEN exclusions IS null OR exclusions LIKE 'null' THEN '' ELSE exclusions END AS exclusions,
+  	CASE WHEN extras IS null OR extras LIKE 'null' THEN '' ELSE extras END AS extras,order_time
 FROM customer_orders;
 ```
 
@@ -135,18 +135,18 @@ FROM customer_orders;
 CREATE TEMP TABLE runner_orders_temp AS
 SELECT order_id, runner_id, 
 	CASE 
-    	WHEN pickup_time LIKE 'null' THEN ' ' 
+    	WHEN pickup_time LIKE 'null' THEN '' 
    	ELSE pickup_time END AS pickup_time,
     CASE 
-    	WHEN distance LIKE 'null' THEN ' '
+    	WHEN distance LIKE 'null' THEN ''
         WHEN distance LIKE '%km' THEN TRIM('km' from distance)
         ELSE distance END AS distance,
     CASE 
-    	WHEN duration LIKE 'null' THEN ' '
+    	WHEN duration LIKE 'null' THEN ''
         WHEN duration LIKE '%mins' THEN TRIM('mins' from duration)
         WHEN duration LIKE '%minute' THEN TRIM ('minute' from duration)
         WHEN duration LIKE '%minutes' THEN TRIM ('minutes' from duration) ELSE duration END AS duration,
-    CASE WHEN cancellation IS null OR cancellation LIKE 'null' THEN ' ' ELSE cancellation END AS cancellation
+    CASE WHEN cancellation IS null OR cancellation LIKE 'null' THEN '' ELSE cancellation END AS cancellation
 FROM runner_orders;
 
 ```
@@ -191,7 +191,7 @@ FROM customer_orders_temp;
 ```sql
 SELECT runner_id, COUNT (order_id) AS total_order
 FROM runner_orders_temp
-WHERE distance <> ' '
+WHERE distance <> ''
 GROUP BY runner_id
 ORDER BY runner_id;
 ```
@@ -210,7 +210,7 @@ JOIN customer_orders_temp AS co
 ON pn.pizza_id = co.pizza_id
 JOIN runner_orders_temp AS ro
 ON co.order_id = ro.order_id
-WHERE distance <> ' '
+WHERE distance <> ''
 GROUP BY pn.pizza_name;
 ```
 
@@ -249,7 +249,7 @@ WITH order_per_id AS(
 FROM customer_orders_temp AS co
 JOIN runner_orders_temp AS ro
 ON co.order_id = ro.order_id
-WHERE distance <> ' '
+WHERE distance <> ''
 GROUP BY co.order_id
 ORDER BY co.order_id)
 
@@ -272,9 +272,48 @@ FROM order_per_id;
 |3|
 
 7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+```sql
+SELECT co.customer_id, 
+SUM(CASE WHEN co.exclusions <> '' OR co.extras <> '' THEN 1 ELSE 0 END) AS change,
+SUM(CASE WHEN co.exclusions = '' AND co.extras = '' THEN 1 ELSE 0 END) AS no_change
+FROM customer_orders_temp AS co
+JOIN runner_orders_temp AS ro
+ON co.order_id = ro.order_id
+WHERE distance <> ''
+GROUP BY co.customer_id
+ORDER BY co.customer_id;
+```
+|customer_id|	change|	no_change|
+|---|---|---|
+|101|	0|	2|
+|102|	0|	3|
+|103|	3|	0|
+|104|	2|	1|
+|105|	1|	0|
 
-How many pizzas were delivered that had both exclusions and extras?
-What was the total volume of pizzas ordered for each hour of the day?
+
+8.How many pizzas were delivered that had both exclusions and extras?
+```sql
+SELECT co.customer_id, 
+SUM(CASE WHEN co.exclusions <> '' AND co.extras <> '' THEN 1 ELSE 0 END) AS change
+FROM customer_orders_temp AS co
+JOIN runner_orders_temp AS ro
+ON co.order_id = ro.order_id
+WHERE distance <> ''
+GROUP BY co.customer_id
+ORDER BY co.customer_id;
+```
+|customer_id	|change|
+|101|	0|
+|102|	0|
+|103|	0|
+|104|	1|
+|105|	0|
+
+9.What was the total volume of pizzas ordered for each hour of the day?
+
+
+
 What was the volume of orders for each day of the week?
 
 B. Runner and Customer Experience
