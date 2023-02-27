@@ -98,6 +98,7 @@ This table contains all of the topping_name values with their corresponding topp
 |12	|Tomato Sauce|
 
 ## Answers:
+Before answering the questions, cleaning the table is the first thing to do as it has inconsistent value, such as null & missing value. 
 1. [Cleaning the database](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner%20(clean%20the%20database).md)
 2. [Case Study Questions & Solutions - A. Pizza Metrics](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner%20(Pizza%20Metrics).md)
 3. [Case Study Questions & Solutions - B. Runner and Customer Experience](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner%20(B).md)
