@@ -97,7 +97,8 @@ This table contains all of the topping_name values with their corresponding topp
 |11	|Tomatoes|
 |12	|Tomato Sauce|
 
-## Cleaning the database
+
+1. [## Cleaning the database](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner%20(clean%20the%20database).md)
 
 If we are looking at the provided table, there is a lot of ```null``` values and missing spaces which leads to unclear explanation of some columns, for example,```exclusions``` & ```extras ``` columns in **Table 2** .
 First thing to do before answer the case study question, we need to clean up the data. Therefore, it is necessary to create temporary table.
