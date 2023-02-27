@@ -103,5 +103,6 @@ Before answering the questions, cleaning the table is the first thing to do as i
 2. [Case Study Questions & Solutions - A. Pizza Metrics](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner%20(Pizza%20Metrics).md)
 3. [Case Study Questions & Solutions - B. Runner and Customer Experience](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner%20(B).md)
 4. [Case Study Questions & Solutions - C. Ingredient Optimisation](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner%20(C).md)
+5. [Case Study Questions & Solutions - D. Pricing and Ratings](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner%20(D).md)
 
 
