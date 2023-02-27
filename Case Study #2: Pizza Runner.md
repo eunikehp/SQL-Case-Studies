@@ -311,11 +311,30 @@ ORDER BY co.customer_id;
 |104|	1|
 |105|	0|
 
-9.What was the total volume of pizzas ordered for each hour of the day?
+9. What was the total volume of pizzas ordered for each hour of the day?
+```sql
+SELECT DATE_PART ('hour', order_time) AS time, SUM (pizza_id) AS total_pizza
+FROM customer_orders_temp
+GROUP BY time
+ORDER BY time;
+```
 
+|time|	total_pizza|
+|---|---|
+|11|	1|
+|13|	4|
+|18|	3|
+|19|	1|
+|21|	5|
+|23|	4|
 
-
-What was the volume of orders for each day of the week?
+10. What was the volume of orders for each day of the week?
+```sql
+SELECT FORMAT(DATEADD('day',2,order_time),'dddd') AS day_per_week,
+COUNT (pizza_id) AS total_pizza_a_day
+FROM customer_orders_temp
+GROUP BY day_per_week;
+```
 
 B. Runner and Customer Experience
 How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
