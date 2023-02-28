@@ -1,4 +1,5 @@
 ** B. Data Analysis Questions **
+
 1. How many customers has Foodie-Fi ever had?
 2. What is the monthly distribution of trial plan start_date values for our dataset - use the start of the month as the group by value
 3. What plan start_date values occur after the year 2020 for our dataset? Show the breakdown by count of events for each ```plan_name```
@@ -23,6 +24,7 @@ FROM subscriptions;
 |1000|
 
 2. What is the monthly distribution of trial plan start_date values for our dataset - use the start of the month as the group by value?
+
 ```sql
 SELECT DATE_PART('month', start_date) AS month_trial, TO_CHAR(start_date, 'Month') AS month_name,
 COUNT(customer_id) AS total_customer
@@ -31,7 +33,6 @@ WHERE plan_id = 0
 GROUP BY month_trial,month_name
 ORDER BY month_trial;
 ```
-
 | month_trial | month_name | total_customer |
 | ----------- | ---------- | -------------- |
 | 1           | January    | 88             |
