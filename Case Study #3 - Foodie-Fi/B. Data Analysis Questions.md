@@ -51,13 +51,32 @@ ORDER BY month_trial;
 
 3. What plan start_date values occur after the year 2020 for our dataset? Show the breakdown by count of events for each ```plan_name```
 
+```sql
+SELECT p.plan_id, p.plan_name, 
+COUNT( DATE_PART('year',s.start_date)) AS event_2021
+FROM plans AS p
+RIGHT JOIN subscriptions AS s
+ON p.plan_id = s.plan_id
+WHERE s.start_date > '2020-12-31'
+GROUP BY p.plan_id, p.plan_name
+ORDER BY p.plan_id;
+```
+|plan_id	|plan_name	|event_2021|
+|---|---|---|
+|1|	basic monthly|	8|
+|2|	pro monthly|	60|
+|3|	pro annual|	63|
+|4|	churn	|71|
+
 4. What is the customer count and percentage of customers who have churned rounded to 1 decimal place?
-5. How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
-6. What is the number and percentage of customer plans after their initial free trial?
-7. What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
-8. How many customers have upgraded to an annual plan in 2020?
-9. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
-10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
-11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
+
+
+6. How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
+7. What is the number and percentage of customer plans after their initial free trial?
+8. What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
+9. How many customers have upgraded to an annual plan in 2020?
+10. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
+11. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
+12. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
 
 Back to [Main Page](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%233%20-%20Foodie-Fi/Main%20Page.md)
