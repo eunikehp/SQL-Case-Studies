@@ -30,5 +30,4 @@ What was the difference between the longest and shortest delivery times for all 
 What was the average speed for each runner for each delivery and do you notice any trend for these values?
 What is the successful delivery percentage for each runner?
 
-
-Back to [Main Menu](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner.md)
+Back to [Main Page](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner/Main%20page.md)
