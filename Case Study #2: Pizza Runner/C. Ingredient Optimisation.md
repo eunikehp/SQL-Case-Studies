@@ -14,4 +14,4 @@ Generate an alphabetically ordered comma separated ingredient list for each pizz
 For example: "Meat Lovers: 2xBacon, Beef, ... , Salami"
 What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
 
-Back to [Main Menu](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner.md) 
+Back to [Main Page](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner/Main%20page.md)
