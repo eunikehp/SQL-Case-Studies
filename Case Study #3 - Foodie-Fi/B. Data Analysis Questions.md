@@ -234,5 +234,21 @@ ON ann.customer_id = tri.customer_id;
 **10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)**
 
 **11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?**
+```sql 
+WITH status AS(
+SELECT customer_id, plan_id, start_date, 
+LEAD (plan_id, 1) over (PARTITION BY customer_id ORDER BY start_date )  AS next_plan
+FROM subscriptions 
+WHERE start_date <= '2020-12-31' 
+ORDER BY customer_id, start_date)
+
+SELECT COUNT (DISTINCT customer_id) AS downgraded
+FROM status
+WHERE next_plan = 1 AND plan_id = 2
+```
+
+|downgraded|
+|---|
+|0|
 
 Back to [Main Page](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%233%20-%20Foodie-Fi/Main%20Page.md)
