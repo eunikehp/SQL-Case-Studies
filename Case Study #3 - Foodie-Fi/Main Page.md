@@ -1,4 +1,4 @@
-# Case Study #2: Pizza Runner
+# Case Study #3 - Foodie-Fi
 
 ## Problem Statement
 Danni wanted to create a new streaming service that only had food related content - something like Netflix but with only cooking shows!
