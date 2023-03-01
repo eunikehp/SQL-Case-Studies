@@ -29,7 +29,10 @@ FROM subscriptions;
 
 **2. What is the monthly distribution of trial plan start_date values for our dataset - use the start of the month as the group by value?**
 
-First, 
+- First, find the detail of ```month``` from ```start_date```
+- To be clear, I use ```TO_CHAR``` to show the month name.
+- Filter only for that have plan_id = 0 to show only the trial.
+
 ```sql
 SELECT DATE_PART('month', start_date) AS month_trial, TO_CHAR(start_date, 'Month') AS month_name,
 COUNT(customer_id) AS total_customer
@@ -56,11 +59,14 @@ ORDER BY month_trial;
 
 **3. What plan ```start_date``` values occur after the year 2020 for our dataset? Show the breakdown by count of events for each ```plan_name```**
 
+- Find the years of each start_date, and count it
+- Filter only that have start date after Dec 31 2020
+ 
 ```sql
 SELECT p.plan_id, p.plan_name, 
 COUNT( DATE_PART('year',s.start_date)) AS event_2021
 FROM plans AS p
-RIGHT JOIN subscriptions AS s
+JOIN subscriptions AS s
 ON p.plan_id = s.plan_id
 WHERE s.start_date > '2020-12-31'
 GROUP BY p.plan_id, p.plan_name
@@ -75,6 +81,20 @@ ORDER BY p.plan_id;
 
 **4. What is the customer count and percentage of customers who have churned rounded to 1 decimal place?**
 
+- First, I used ```JOIN``` to find the number of customers that have churned the account by using conditional ```WHERE``` , 
+- then calculated the total percentage of churn ,also rounded to 1 decimal.
+
+```sql
+SELECT COUNT(*) AS churn_count, 
+ROUND(COUNT(*)::NUMERIC/(SELECT COUNT(DISTINCT customer_id)FROM subscriptions)*100, 1) AS churn_percentage
+FROM plans AS p
+JOIN subscriptions AS s
+ON p.plan_id = s.plan_id
+WHERE p.plan_id = 4;
+```
+|churn_count	|churn_percentage|
+|---|---|
+|307	|30.7|
 
 **5. How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?**
 
