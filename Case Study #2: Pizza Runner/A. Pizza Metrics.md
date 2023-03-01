@@ -1,8 +1,10 @@
 
-## Case Study Questions & Solutions
+# Case Study Questions & Solutions
 
-A. Pizza Metrics
-1. How many pizzas were ordered?
+## A. Pizza Metrics
+**1. How many pizzas were ordered?**
+
+To show the total of pizzas were ordered, I used ```COUNT```.
 
 ```sql
 SELECT COUNT (pizza_id) AS total_pizza
@@ -12,7 +14,11 @@ FROM customer_orders_temp;
 |---|
 |14|
 
-2. How many unique customer orders were made?
+- There are 14 pizzas were ordered.
+
+**2. How many unique customer orders were made?**
+
+To find the number of unique customer orders, I put ```DISTINCT``` after ```COUNT```
 
 ```sql
 SELECT COUNT (DISTINCT order_id) AS total_order
@@ -22,7 +28,12 @@ FROM customer_orders_temp;
 |---|
 |10|
 
-3. How many successful orders were delivered by each runner?
+- Pizza Runner has 10 unique customer orders.
+
+**3. How many successful orders were delivered by each runner?**
+
+To ```COUNT``` the successful delivery by each runner, I put ```WHERE``` clause of ```distance <> 0``` ,meaning that there are record of how many kilometers the runners went.
+
 ```sql
 SELECT runner_id, COUNT (order_id) AS total_order
 FROM runner_orders_temp
@@ -37,7 +48,14 @@ ORDER BY runner_id;
 |2|	3|
 |3|	1|
 
-4. How many of each type of pizza was delivered?
+- Runner 1 has 4 successful delivered orders.
+- Runner 2 has 3 successful delivered orders.
+- Runner 3 has 1 successful delivered order.
+
+**4. How many of each type of pizza was delivered?**
+
+First, I ```join``` three tables which are ```pizza_names``` , ```customer_orders_temp``` and ```runner_orders_temp```. Then ```COUNT``` the number of pizza by using ```WHERE``` clause ```distance <>''```
+
 ```sql
 SELECT pn.pizza_name, COUNT (co.pizza_id) AS total_pizza
 FROM pizza_names AS pn
@@ -54,8 +72,10 @@ GROUP BY pn.pizza_name;
 |Meatlovers |	9 |
 |Vegetarian |	3 |
 
+- Pizza Runner has 9 meatlovers & 3 vegetarian delivered.
 
-5. How many Vegetarian and Meatlovers were ordered by each customer?
+**5. How many Vegetarian and Meatlovers were ordered by each customer?**
+
 ```sql
 SELECT co.customer_id, pn.pizza_name, COUNT(pn.pizza_name) AS total_pizza
 FROM customer_orders_temp AS co
@@ -76,7 +96,7 @@ ORDER BY co.customer_id;
 |104|	Meatlovers|	3|
 |105|	Vegetarian|	1|
 
-6. What was the maximum number of pizzas delivered in a single order?
+**6. What was the maximum number of pizzas delivered in a single order?**
 
 ```sql
 WITH order_per_id AS(
@@ -106,7 +126,7 @@ FROM order_per_id;
 |---|
 |3|
 
-7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+**7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?**
 ```sql
 SELECT co.customer_id, 
 SUM(CASE WHEN co.exclusions <> '' OR co.extras <> '' THEN 1 ELSE 0 END) AS change,
@@ -127,7 +147,7 @@ ORDER BY co.customer_id;
 |105|	1|	0|
 
 
-8.How many pizzas were delivered that had both exclusions and extras?
+**8.How many pizzas were delivered that had both exclusions and extras?**
 ```sql
 SELECT co.customer_id, 
 SUM(CASE WHEN co.exclusions <> '' AND co.extras <> '' THEN 1 ELSE 0 END) AS change
@@ -146,7 +166,7 @@ ORDER BY co.customer_id;
 |104|	1|
 |105|	0|
 
-9. What was the total volume of pizzas ordered for each hour of the day?
+**9. What was the total volume of pizzas ordered for each hour of the day?**
 ```sql
 SELECT DATE_PART ('hour', order_time) AS time, SUM (pizza_id) AS total_pizza
 FROM customer_orders_temp
@@ -163,7 +183,7 @@ ORDER BY time;
 |21|	5|
 |23|	4|
 
-10. What was the volume of orders for each day of the week?
+**10. What was the volume of orders for each day of the week?**
 ```sql
 SELECT FORMAT(DATEADD('day',2,order_time),'dddd') AS day_per_week,
 COUNT (pizza_id) AS total_pizza_a_day
