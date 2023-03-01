@@ -207,6 +207,29 @@ ORDER BY plan_id;
 |195	|19.5|
 
 **9. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?**
+```sql
+WITH free_trial AS(
+SELECT s.customer_id, s.start_date AS trial_plan
+FROM plans AS p
+JOIN subscriptions AS s
+ON p.plan_id = s.plan_id
+WHERE p.plan_id = 0 ),
+
+annual_subs AS(
+SELECT s.customer_id, s.start_date AS annual_plan
+FROM plans AS p
+JOIN subscriptions AS s
+ON p.plan_id = s.plan_id
+WHERE p.plan_id = 3 )
+
+SELECT ROUND (AVG(annual_plan - trial_plan),0) AS avg_days_upgrade_to_annual
+FROM annual_subs AS ann
+JOIN free_trial AS tri
+ON ann.customer_id = tri.customer_id;
+```
+|avg_days_upgrade_to_annual|
+|---|
+|105|
 
 **10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)**
 
