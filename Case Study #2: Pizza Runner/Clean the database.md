@@ -1,6 +1,6 @@
 ## Cleaning the database
 
-If we are looking at the provided table, there is a lot of ```null``` values and missing spaces which leads to unclear explanation of some columns, for example,```exclusions``` & ```extras ``` columns in **Table 2** and then ```pickup_time```, ```distance```, ```duration``` & ```cancellation columns in **Table 3**.
+If we are looking at the provided database, there is a lot of ```null``` values and missing spaces in some tables which leads to unclear explanation of some columns, for example,```exclusions``` & ```extras ``` columns in **Table 2** and then ```pickup_time```, ```distance```, ```duration``` & ```cancellation columns in **Table 3**.
 First thing to do before answering the case study questions, we need to clean up the data. Therefore, it is necessary to create temporary table.
 
 **Table 2A - customer_orders_temp**
