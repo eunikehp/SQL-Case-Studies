@@ -152,6 +152,37 @@ ORDER BY plan_id;
 
 **7. What is the customer count and percentage breakdown of all 5 ```plan_name``` values at 2020-12-31?**
 
+To find the status at 31 Dec 2020 in terms of the number of customers and the percentage, here are some steps:
+1. Create rank based on the start date of each customer in descending order. Through this way,we know the latest status of what plans the customers have.
+2. Filter to show only date before and at 31 Dec 2020
+3. Count the number of customers and the percentage with condition above.
+4. Filter where the status is 1,  which means showing the customer with the latest status.
+
+```sql
+WITH status AS(
+SELECT s.customer_id, s.plan_id,p.plan_name, s.start_date, 
+RANK () over (PARTITION BY s.customer_id ORDER BY s.start_date DESC)  AS current_status -- rank the start date in descending order
+FROM plans AS p
+JOIN subscriptions AS s
+ON p.plan_id = s.plan_id
+WHERE s.start_date <= '2020-12-31' 
+ORDER BY s.customer_id, s.plan_id)
+
+SELECT plan_id,plan_name, COUNT(*), 
+ROUND(COUNT(*)::NUMERIC/ (SELECT COUNT(DISTINCT customer_id) FROM subscriptions)*100,1) AS percentage --1 decimal
+FROM status
+WHERE current_status = 1
+GROUP BY plan_id,plan_name
+ORDER BY plan_id;
+ ```
+|plan_id	|plan_name|	count|	percentage|
+|---|---|---|---|
+|0|	trial	|19|	1.9|
+|1	|basic monthly|	224	|22.4|
+|2|	pro monthly	|326	|32.6|
+|3|	pro annual	|195	|19.5|
+|4|	churn	|236|	23.6|
+
 **8. How many customers have upgraded to an annual plan in 2020?**
 
 **9. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?**
