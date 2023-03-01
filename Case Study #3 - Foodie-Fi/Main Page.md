@@ -14,6 +14,14 @@ This case study focuses on using subscription style digital data to answer impor
 
 **Table 1:** ```plans```
 
+|plan_id|	plan_name|	price|
+|---|---|---|
+|0|	trial|	0|
+|1	|basic monthly|	9.90|
+|2	|pro monthly	|19.90|
+|3|	pro annual|	199|
+|4|	churn	|null|
+
 Customers can choose which plans to join Foodie-Fi when they first sign up. 
 
 **Trial:** Customers can sign up to an initial 7 day free trial will automatically continue with the pro monthly subscription plan 
@@ -27,24 +35,7 @@ They start at $19.90 a **month** or $199 for an **annual subscription**.
 **Churn plan:** When customers cancel their Foodie-Fi service - they will have a record with a null price 
 but their plan will continue until the end of the billing period.
 
-
-|plan_id|	plan_name|	price|
-|---|---|---|
-|0|	trial|	0|
-|1	|basic monthly|	9.90|
-|2	|pro monthly	|19.90|
-|3|	pro annual|	199|
-|4|	churn	|null|
-
-
 **Table 2:** ```subscriptions```
-
-Customer subscriptions show the exact date where their specific plan_id starts. 
-If customers downgrade from a pro plan or cancel their subscription - the higher plan will remain in place until the period is over - 
-the start_date in the subscriptions table will reflect the date that the actual plan changes.
-
-When customers upgrade their account from a basic plan to a pro or annual pro plan - the higher plan will take effect straightaway.
-When customers churn - they will keep their access until the end of their current billing period but the start_date will be technically the day they decided to cancel their service.
 
 |customer_id	|plan_id	|start_date|
 |---|---|---|
@@ -69,12 +60,22 @@ When customers churn - they will keep their access until the end of their curren
 |19	|2	|2020-06-29|
 |19	|3|	2020-08-29|
 
+Customer subscriptions show the exact date where their specific plan_id starts. 
+If customers downgrade from a pro plan or cancel their subscription - the higher plan will remain in place until the period is over - 
+the start_date in the subscriptions table will reflect the date that the actual plan changes.
+
+When customers upgrade their account from a basic plan to a pro or annual pro plan - the higher plan will take effect straightaway.
+When customers churn - they will keep their access until the end of their current billing period but the start_date will be technically the day they decided to cancel their service.
+
+
 ## Case Study Questions
 
 **A. Customer Journey**
 
 Based off the 8 sample customers provided in the sample from the subscriptions table, 
 write a brief description about each customer’s onboarding journey.
+
+- First, I combine those 2 provided tables for getting a clear idea to create customer's onboarding journey. 
 
 ```sql
 SELECT s.customer_id, s.plan_id, p.plan_name, s.start_date
@@ -84,8 +85,6 @@ ON p.plan_id = s.plan_id
 WHERE s.customer_id IN (1,2,11,13,15,16,18,19)
 ORDER BY s.customer_id, s.plan_id;
 ```
-
-```First, I combine those 2 provided tables for getting a clear idea to create customer/s onboarding journey.```
 
 |customer_id	|plan_id|	plan_name|	start_date|
 |---|---|---|---|
@@ -110,8 +109,7 @@ ORDER BY s.customer_id, s.plan_id;
 |19	|2|	pro monthly|	2020-06-29|
 |19	|3|	pro annual	|2020-08-29|
 
-
-**Answers: Customer's onboarding journey**
+From the table above, I can conclude the onboarding journey of each customer: 
 - Customer 1 signed up and followed free trial on 1 August 2020 and then the next 7 days, subscribed the monthly basic plan.
 - Customer 2 started the free trial on 20 Sept 2020 and subsequently started annual subscription after the trial period has ended.
 - Customer 11 followed trial plan on 19 Nov 2020, however did not upgrade the plan afterwards & chose churn plan.
@@ -121,24 +119,10 @@ ORDER BY s.customer_id, s.plan_id;
 - Customer 18 followed trial plan on 6 Jul 2020 and afterwards subscribed pro plan with monthly subscription. 
 - Customer 19 started the free trial on 22 Jun 2020, then subscribed pro plan with monthly payment. About 2 months, changed the payment system from monthly to annual.
 
-**B. Data Analysis Questions**
-1. How many customers has Foodie-Fi ever had?
-2. What is the monthly distribution of trial plan start_date values for our dataset - use the start of the month as the group by value
-3. What plan start_date values occur after the year 2020 for our dataset? Show the breakdown by count of events for each ```plan_name```
-4. What is the customer count and percentage of customers who have churned rounded to 1 decimal place?
-5. How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
-6. What is the number and percentage of customer plans after their initial free trial?
-7. What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
-8. How many customers have upgraded to an annual plan in 2020?
-9. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
-10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
-11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
+Next, there are some questions related the case & solutions that I made:
 
-**C. Challenge Payment Question**
-The Foodie-Fi team wants you to create a new payments table for the year 2020 that includes amounts paid by each customer in the subscriptions table with the following requirements:
+[**B. Data Analysis Questions**](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%233%20-%20Foodie-Fi/B.%20Data%20Analysis%20Questions.md)
 
-- monthly payments always occur on the same day of month as the original start_date of any monthly paid plan
-- upgrades from basic to monthly or pro plans are reduced by the current paid amount in that month and start immediately
-- upgrades from pro monthly to pro annual are paid at the end of the current billing period and also starts at the end of the month period
-- once a customer churns they will no longer make payments
+[**C. Challenge Payment Questions**](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%233%20-%20Foodie-Fi/C.%20Challenge%20Payment%20Question.md)
+
 
