@@ -5,6 +5,8 @@ First thing to do before answering the case study questions, we need to clean up
 
 **Table 2A - customer_orders_temp**
 
+STEP: Changing the ```null``` or LIKE ```null``` to ```''``` 
+
 ```sql
 CREATE TEMP TABLE customer_orders_temp AS
   SELECT order_id, customer_id, pizza_id,
@@ -31,8 +33,10 @@ FROM customer_orders;
 |10|	104|	1	|2, 6|	1, 4	|2021-01-11 18:34:49|
 
 **Table 3A - runner_orders_temp**
-```sql
 
+STEP: Delete all details after number, such as ```km```, ```minute```,etc from the columns. 
+
+```sql
 CREATE TEMP TABLE runner_orders_temp AS
 SELECT order_id, runner_id, 
 	CASE 
