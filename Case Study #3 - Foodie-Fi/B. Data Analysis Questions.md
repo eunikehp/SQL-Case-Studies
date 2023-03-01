@@ -185,6 +185,27 @@ ORDER BY plan_id;
 
 **8. How many customers have upgraded to an annual plan in 2020?**
 
+```sql
+WITH status AS(
+SELECT s.customer_id, s.plan_id,p.plan_name, s.start_date, 
+RANK () over (PARTITION BY s.customer_id ORDER BY s.start_date DESC)  AS current_status -- rank the start date in descending order
+FROM plans AS p
+JOIN subscriptions AS s
+ON p.plan_id = s.plan_id
+WHERE s.start_date <= '2020-12-31' AND s.plan_id = 3 
+ORDER BY s.customer_id, s.plan_id)
+
+SELECT COUNT(*) AS proannual_count, 
+ROUND(COUNT(*)::NUMERIC/ (SELECT COUNT(DISTINCT customer_id) FROM subscriptions)*100,1) AS percentage --1 decimal
+FROM status
+WHERE current_status = 1
+GROUP BY plan_id,plan_name
+ORDER BY plan_id;
+```
+|proannual_count	|percentage|
+|---|---|
+|195	|19.5|
+
 **9. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?**
 
 **10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)**
