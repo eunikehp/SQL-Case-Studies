@@ -1,6 +1,6 @@
 # SQL-Case-Studies
 
-This repository contains case studies from **#8WeekSQLChallenge** by [Danny Ma.](https://8weeksqlchallenge.com/getting-started/) Through these case studies, I practiced my skill in SQL and tried to find the solutions for the questions on the each case. I shared the answers on the following link below. 
+This repository contains case studies of **#8WeekSQLChallenge** from [Danny Ma.](https://8weeksqlchallenge.com/getting-started/) Through these case studies, I practiced my skill in SQL and tried to find the solutions for the questions on the each case. I shared the answers on the following link below. 
 
 ## Table of Contents
 - [Case Study #1: Danny's Dinner](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%231:%20Danny's%20Dinner.md)
