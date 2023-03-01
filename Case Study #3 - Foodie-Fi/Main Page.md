@@ -24,15 +24,12 @@ This case study focuses on using subscription style digital data to answer impor
 
 Customers can choose which plans to join Foodie-Fi when they first sign up. 
 
-**Trial:** Customers can sign up to an initial 7 day free trial will automatically continue with the pro monthly subscription plan 
+- **Trial:** Customers can sign up to an initial 7 day free trial will automatically continue with the pro monthly subscription plan 
 unless they cancel, downgrade to basic or upgrade to an annual pro plan at any point during the trial.
-
-**Basic plan:** customers have limited access and can only stream their videos and is only available monthly at $9.90.
-
-**Pro plan:** customers have no watch time limits and are able to download videos for offline viewing. 
+- **Basic plan:** customers have limited access and can only stream their videos and is only available monthly at $9.90.
+- **Pro plan:** customers have no watch time limits and are able to download videos for offline viewing. 
 They start at $19.90 a **month** or $199 for an **annual subscription**.
-
-**Churn plan:** When customers cancel their Foodie-Fi service - they will have a record with a null price 
+- **Churn plan:** When customers cancel their Foodie-Fi service - they will have a record with a null price 
 but their plan will continue until the end of the billing period.
 
 **Table 2:** ```subscriptions```
