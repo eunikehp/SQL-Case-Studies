@@ -1,7 +1,7 @@
 ## Cleaning the database
 
-If we are looking at the provided table, there is a lot of ```null``` values and missing spaces which leads to unclear explanation of some columns, for example,```exclusions``` & ```extras ``` columns in **Table 2** .
-First thing to do before answer the case study question, we need to clean up the data. Therefore, it is necessary to create temporary table.
+If we are looking at the provided table, there is a lot of ```null``` values and missing spaces which leads to unclear explanation of some columns, for example,```exclusions``` & ```extras ``` columns in **Table 2** and then ```pickup_time```, ```distance```, ```duration``` & ```cancellation columns in **Table 3**.
+First thing to do before answering the case study questions, we need to clean up the data. Therefore, it is necessary to create temporary table.
 
 **Table 2A - customer_orders_temp**
 
@@ -64,5 +64,4 @@ FROM runner_orders;
 |9|	2	||		||	Customer Cancellation|
 |10|	1|	2020-01-11 18:50:20	|10	|10	||
 
-
-Back to [Main Page](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner/Main%20page.md)
+Now, the tables are ready to be used to answer case study questions. We are going back to [Main Page](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%232:%20Pizza%20Runner/Main%20page.md) 
