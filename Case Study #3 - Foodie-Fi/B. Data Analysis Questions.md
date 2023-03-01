@@ -98,13 +98,34 @@ WHERE p.plan_id = 4;
 
 **5. How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?**
 
+```sql
+WITH ranking AS(
+SELECT s.customer_id, s.plan_id, p.plan_name, 
+RANK () over (PARTITION BY s.customer_id ORDER BY p.plan_id) AS rank_plan -- rank the plan_id in order 
+FROM plans AS p
+JOIN subscriptions AS s
+ON p.plan_id = s.plan_id
+ORDER BY s.customer_id, s.plan_id)
+
+SELECT COUNT(*), 
+ROUND(COUNT(*)::NUMERIC/ (SELECT COUNT(DISTINCT customer_id) FROM subscriptions)*100,0) AS percentage --0 decimal
+FROM ranking
+WHERE plan_id = 4 AND rank_plan = 2;
+```
+|count|	percentage|
+|---|---|
+|92	|9|
 
 **6. What is the number and percentage of customer plans after their initial free trial?**
 
 **7. What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?**
-9. How many customers have upgraded to an annual plan in 2020?
-10. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
-11. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
-12. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
+
+**8. How many customers have upgraded to an annual plan in 2020?**
+
+**9. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?**
+
+**10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)**
+
+**11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?**
 
 Back to [Main Page](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%233%20-%20Foodie-Fi/Main%20Page.md)
