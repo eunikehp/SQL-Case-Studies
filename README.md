@@ -1,4 +1,4 @@
-# SQL-Case-Studies
+# SQL Case Studies
 
 This repository contains case studies of **#8WeekSQLChallenge** from [Danny Ma.](https://8weeksqlchallenge.com/getting-started/) Through these case studies, I practiced my skill in SQL and tried to find the solutions for the questions on the each case. I shared the answers on the following link below. 
 
