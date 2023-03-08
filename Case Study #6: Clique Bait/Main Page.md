@@ -85,3 +85,6 @@ This table lists all of the pages on the Clique Bait website which are tagged an
 |11|	Oyster	|Shellfish	|9|
 |12	|Checkout|	null	|null|
 13|	Confirmation|	null	|null|
+
+## Questions & Solutions
+- [Digital Analysis](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%236:%20Clique%20Bait/Digital%20Analysis.md)
