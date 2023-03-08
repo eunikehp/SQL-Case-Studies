@@ -9,5 +9,5 @@ This repository contains case studies of **#8WeekSQLChallenge** from [Danny Ma.]
 - [Case Study #4: Data Bank](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%234%20-%20Data%20Bank.md)
 - [Case Study #5: Data Mart](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%235:%20Data%20Mart/Main%20Page.md)
 - [Case Study #6: Clique Bait](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%236:%20Clique%20Bait/Main%20Page.md)
-- Case Study #7: Balanced Tree Clothing Co.
+- [Case Study #7: Balanced Tree Clothing Co.](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%237:%20Balanced%20Tree%20Clothing%20Co./Main%20Page.md)
 - Case Study #8: Fresh Segments
