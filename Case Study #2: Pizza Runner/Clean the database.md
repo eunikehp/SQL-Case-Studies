@@ -14,6 +14,7 @@ CREATE TEMP TABLE customer_orders_temp AS
   	CASE WHEN extras IS null OR extras LIKE 'null' THEN '' ELSE extras END AS extras,order_time
 FROM customer_orders;
 ```
+Here is the new temporary table that is already clean, without null values anymore.
 
 |order_id|	customer_id|	pizza_id	|exclusions	|extras|	order_time|
 |----|---|----|---|---|---|
