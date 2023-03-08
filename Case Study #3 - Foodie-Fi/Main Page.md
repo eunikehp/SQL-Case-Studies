@@ -72,7 +72,7 @@ When customers churn - they will keep their access until the end of their curren
 Based off the 8 sample customers provided in the sample from the subscriptions table, 
 write a brief description about each customer’s onboarding journey.
 
-- First, I combine those 2 provided tables for getting a clear idea to create customer's onboarding journey. 
+- First, I combined those 2 provided tables for getting a clear idea to create customer's onboarding journey. 
 
 ```sql
 SELECT s.customer_id, s.plan_id, p.plan_name, s.start_date
