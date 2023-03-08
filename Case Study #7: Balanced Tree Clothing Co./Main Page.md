@@ -86,5 +86,5 @@ The tables are used only for the bonus question where we will use them to recrea
 |17|	b9a74d|	17|
 |18|	2feb6b|	29|
 
-## Questions & Solutions
-- 
+## Analysis
+[Click Here](https://github.com/eunikehp/SQL-Case-Studies/blob/main/Case%20Study%20%237:%20Balanced%20Tree%20Clothing%20Co./Analysis.md)
